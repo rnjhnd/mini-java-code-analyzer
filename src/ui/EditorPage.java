@@ -21,7 +21,7 @@ public class EditorPage extends JFrame {
     private FileLoader openFileHandler;
 
     public EditorPage() {
-        setTitle("Mini Java Compiler");
+        setTitle("Mini Java Code Analyzer");
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
