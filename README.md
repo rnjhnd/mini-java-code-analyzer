@@ -1,110 +1,204 @@
-# Mini Java Compiler
+# Mini Java Code Analyzer
 
-The **Mini Java Compiler** is a lightweight Java application designed to analyze, compile, and simulate the execution of basic Java code. It provides an integrated graphical user interface (GUI) for writing, analyzing, and understanding Java code.
+A Java desktop application that performs basic lexical, syntax, and semantic analysis on a limited subset of Java code. Built using Java Swing and regular expressions, the application provides an interactive environment for writing, examining, and identifying errors in simple Java variable declarations.
+
+This project demonstrates fundamental concepts of source code analysis, object-oriented programming, and desktop application development.
+
+> **Note:** This is an educational code analysis tool, not a complete Java compiler. It supports simplified code validation and does not generate bytecode or execute Java programs.
 
 ## Features
 
-- **Lexical Analysis**: Tokenizes the source code and identifies unknown tokens.
-- **Syntax Analysis**: Validates code structure against Java grammar.
-- **Semantic Analysis**: Checks for type mismatches and semantic errors.
-- **GUI with Editor**:
-  - Code editor with undo/redo, cut, copy, and paste functionality.
-  - Syntax highlighting for better readability.
-  - Analysis results displayed in a separate panel.
-- **File Handling**: Open and edit `.java` files directly.
-- **Zoom Controls**: Adjust the font size dynamically for accessibility.
+### Code Analysis
 
-## Folder Structure
+- **Lexical Analysis:** Uses regular expressions to recognize basic Java data types, identifiers, assignment operators, literals, and delimiters.
+- **Syntax Analysis:** Validates the structure of simple variable declarations and assignments.
+- **Semantic Analysis:** Performs basic data-type compatibility checks and reports mismatched values.
+- **Analysis Pipeline:** Runs lexical, syntax, and semantic checks sequentially, stopping when an earlier stage reports an error.
 
-```plaintext
-Mini-Java-Compiler/
-├── src/                  # Source code
-│   ├── actions/               # Action handlers (lexical, syntax, semantic analysis)
-│   ├── common/                # Shared classes (e.g., Token)
-│   ├── main/                  # Application entry point
-│   └── ui/                    # User interface components                 
-└── README.md             # Project documentation
+### Desktop Interface
+
+- Java Swing graphical user interface with a code editor and analysis results panel.
+- Individual controls for lexical, syntax, and semantic analysis.
+- Run button for executing the complete analysis sequence.
+- File selection and loading for existing source files.
+- Editing operations including undo, redo, cut, copy, paste, and select all.
+- Adjustable editor font size through menu controls and Ctrl + mouse wheel.
+
+## Technologies Used
+
+- **Java:** Core application logic and object-oriented programming.
+- **Java Swing:** Desktop graphical user interface.
+- **Regular Expressions (Regex):** Pattern matching for code recognition and validation.
+- **Java I/O:** Reading source files from the local filesystem.
+
+## Project Structure
+
+```text
+mini-java-compiler/
+├── src/
+│   ├── actions/
+│   │   ├── CodeRunner.java
+│   │   ├── FileLoader.java
+│   │   ├── LexicalAnalyzer.java
+│   │   ├── SemanticAnalyzer.java
+│   │   └── SyntaxAnalyzer.java
+│   ├── common/
+│   │   └── Token.java
+│   ├── main/
+│   │   └── MiniJavaCompiler.java
+│   └── ui/
+│       ├── EditorPage.java
+│       └── WelcomePage.java
+└── README.md
 ```
 
-## Installation
+### Core Components
 
-1. Ensure you have Java Development Kit (JDK) installed (version 8 or higher).
-2. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/minijavacompiler.git
-   cd minijavacompiler   
-3. Compile the project:
-   ```bash
-   javac -d bin -sourcepath src src/minicompiler/main/MiniJavaCompiler.java
-4. Run the application:
-   ```bash
-   java -cp bin minicompiler.main.MiniJavaCompiler
+| Component | Responsibility |
+|---|---|
+| `MiniJavaCompiler` | Launches the Swing application |
+| `WelcomePage` | Provides the initial application window |
+| `EditorPage` | Manages the code editor, controls, and results display |
+| `CodeRunner` | Coordinates the analysis sequence |
+| `LexicalAnalyzer` | Recognizes supported tokens and reports invalid input |
+| `SyntaxAnalyzer` | Checks the structure of basic variable declarations |
+| `SemanticAnalyzer` | Performs simplified data-type validation |
+| `FileLoader` | Loads source files into the editor |
+| `Token` | Represents a token using type and value attributes |
+
+## Installation and Setup
+
+### Prerequisites
+
+- Java Development Kit (JDK) 8 or later
+- Git (optional, for cloning the repository)
+
+Java Swing is included with the standard JDK. No additional third-party libraries are required.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/rnjhnd/mini-java-compiler.git
+cd mini-java-compiler
+```
+
+### 2. Compile the application
+
+From the repository root, run:
+
+```bash
+javac -d bin -sourcepath src src/main/MiniJavaCompiler.java
+```
+
+### 3. Launch the application
+
+```bash
+java -cp bin main.MiniJavaCompiler
+```
+
+The application opens a welcome screen with a **Start** button. Select it to access the code editor.
 
 ## How to Use
 
-1. Launch the application and select Start on the welcome screen.
-2. Use the editor to write or load Java code.
-3. Perform analyses:
-   - `Lexical Analysis`: Identifies tokens and highlights unknown tokens.
-   - `Syntax Analysis`: Validates the code structure.
-   - `Semantic Analysis`: Ensures type compatibility and detects semantic errors.
-4. Click Run to execute all analyses sequentially.
+1. Launch the application and select **Start**.
+2. Enter a simple Java variable declaration or open an existing source file.
+3. Use **Lexical Analysis** to inspect recognized code elements.
+4. Use **Syntax Analysis** to check the declaration's structure.
+5. Use **Semantic Analysis** to check basic type compatibility.
+6. Alternatively, select **Run** to execute the analysis stages sequentially.
+7. Review diagnostic messages in the results panel.
 
-## Development
+The Run button performs analysis only. It does not compile or execute the entered Java code.
 
-### Prerequisites
-  * Java JDK 8 or later
-  * Java Swing (included in the JDK)
-### Key Classes
-  * `CodeRunner`: Executes the entire pipeline (lexical, syntax, and semantic analysis).
-  * `LexicalAnalyzer`: Tokenizes and identifies lexical errors.
-  * `SyntaxAnalyzer`: Validates the code's syntax.
-  * `SemanticAnalyzer`: Checks type compatibility and validates logic.
-  * `EditorPage`: The main user interface.
-  * `FileLoader`: Handles file import operations.
+## Example Validation Scenarios
 
-## Validation Scenarios
+The examples below illustrate the limited syntax supported by the application. Results depend on the current regular-expression rules.
 
-Below are different scenarios illustrating various stages of code validation:
+### Example 1: Valid Declaration
 
-### Scenario A: Valid Lexical Tokens, but Syntax Error
-This scenario demonstrates code that is accepted at the lexical level (tokens are recognized), but fails during syntax validation.
-
-```plaintext
-int x 5;  // Syntax error: missing assignment operator
+```java
+int age = 21;
 ```
 
-  * `Lexical Analysis`: The tokens int, x, and 5 are recognized correctly.
-  * `Syntax Analysis`: The code fails because the assignment operator = is missing between the variable and value.
+**Expected behavior:**
 
-### Scenario B: Valid Lexical and Syntax, but Semantic Error
-This scenario demonstrates code that passes lexical and syntax validation but fails during semantic analysis due to logical errors or type mismatches.
+- Lexical analysis recognizes the data type, identifier, assignment operator, literal, and delimiter.
+- Syntax analysis accepts the declaration structure.
+- Semantic analysis accepts the integer value.
 
-```plaintext
-int variable = 1.34;  // Semantic error: incompatible types (float assigned to int)
+### Example 2: Syntax Error
+
+```java
+int age 21;
 ```
 
-  * `Lexical Analysis`: The tokens int, variable, and 1.34 are recognized correctly.
-  * `Syntax Analysis`: The structure of the code is correct.
-  * `Semantic Analysis`: The code fails because 1.34 is a floating-point number, which cannot be assigned to an integer variable.
+**Expected behavior:**
 
-### Scenario C: Lexical Failure Due to Unknow Token(s)
-This scenario shows code that fails during the lexical analysis phase due to unrecognized or invalid characters.
+- Lexical analysis may recognize the individual declaration elements.
+- Syntax analysis rejects the statement because the assignment operator is missing.
 
-```plaintext
-int x = 5 @ 10;  // Lexical error: invalid character '@'
+### Example 3: Type Mismatch
+
+```java
+int age = 21.5;
 ```
 
-  * `Lexical Analysis`: The code fails immediately because the character @ is not a valid token in this context.
-  * `Syntax and Semantic Analysis`: These stages are not reached due to the failure during lexical analysis.
+**Expected behavior:**
 
-## Contributions
+- Lexical analysis recognizes the declaration elements.
+- Syntax analysis accepts the basic assignment structure.
+- Semantic analysis rejects the decimal value as incompatible with the declared integer type.
 
-Contributions are welcome! If you'd like to contribute:
+### Example 4: Unrecognized Input
 
-1. Fork the repository.
-2. Create a new branch for your feature/fix:
-  ```plaintext
-  git checkout -b feature-name
-  ```
-3. Commit your changes and open a pull request.
+```java
+int age = 5 @ 10;
+```
+
+**Expected behavior:**
+
+- Lexical analysis reports the statement as containing unrecognized input.
+- The sequential analysis pipeline stops before subsequent stages.
+
+## Current Limitations
+
+This application is intended to demonstrate introductory source code analysis rather than fully implement the Java language.
+
+Current limitations include:
+
+- Supports only a restricted subset of Java declarations and assignments.
+- Does not parse complete Java classes, methods, loops, or conditional statements.
+- Relies on regular expressions rather than a complete Java grammar and parser.
+- Implements simplified type checking without comprehensive Java language rules.
+- Does not generate Java bytecode or execute source programs.
+- Does not provide full symbol-table management or variable scope analysis.
+- Some valid Java expressions and declarations may not be recognized.
+
+## Potential Improvements
+
+Future enhancements could include:
+
+- Expanding support for Java expressions and statement types.
+- Implementing a proper tokenizer and parser.
+- Introducing structured diagnostic results with error locations.
+- Improving numeric range and type validation.
+- Separating analysis logic more completely from the user interface.
+- Adding automated unit tests for valid inputs, invalid syntax, and edge cases.
+- Improving editor responsiveness and error highlighting.
+
+## Learning Outcomes
+
+Developing this project provided practical experience with:
+
+- Applying object-oriented programming concepts in Java.
+- Organizing application logic into separate classes and packages.
+- Implementing simplified lexical, syntax, and semantic analysis.
+- Using regular expressions for pattern recognition.
+- Building event-driven desktop interfaces with Java Swing.
+- Handling local files and displaying diagnostic feedback.
+
+## Project Purpose
+
+The Mini Java Code Analyzer was developed as an educational project to explore how programming language analysis works at a fundamental level.
+
+It focuses on recognizing source code elements, validating simple syntax, and identifying basic type mismatches while providing a graphical interface for interacting with the analysis process.
