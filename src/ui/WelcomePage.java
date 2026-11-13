@@ -6,7 +6,7 @@ import java.awt.*;
 public class WelcomePage extends JFrame {
 
     public WelcomePage() {
-        setTitle("Mini Java Compiler");
+        setTitle("Mini Java Code Analyzer");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
@@ -18,7 +18,7 @@ public class WelcomePage extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
 
         // Header label
-        JLabel headerLabel = new JLabel("Welcome to Mini Java Compiler!", JLabel.CENTER);
+        JLabel headerLabel = new JLabel("Welcome to Mini Java Code Analyzer!", JLabel.CENTER);
         headerLabel.setFont(new Font("Source Code Pro", Font.BOLD, 30));
         add(headerLabel, gbc);
 
