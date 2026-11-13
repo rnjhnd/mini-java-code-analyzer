@@ -99,7 +99,7 @@ public class EditorPage extends JFrame {
     
 
     private JLabel createHeaderLabel() {
-        JLabel headerLabel = new JLabel("Mini Java Compiler", JLabel.CENTER);
+        JLabel headerLabel = new JLabel(" Java Code Analyzer", JLabel.CENTER);
         headerLabel.setFont(new Font("Source Code Pro", Font.BOLD, 28));
         headerLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         return headerLabel;
@@ -299,7 +299,7 @@ public class EditorPage extends JFrame {
                     newSize += 2;
                 } else if (e.getWheelRotation() > 0) { // Zoom out
                     newSize -= 2;
-                    if (newSize < 8) newSize = 8; // Minimum font size
+                    if (newSize < 8) newSize = 8; // mum font size
                 }
     
                 codeTextArea.setFont(currentFont.deriveFont((float) newSize));
@@ -315,7 +315,7 @@ public class EditorPage extends JFrame {
 
     private void showAboutDialog() {
         // Create a new dialog
-        JDialog aboutDialog = new JDialog(this, "About Mini Java Compiler", true);
+        JDialog aboutDialog = new JDialog(this, "About Mini Java Code Analyzer", true);
         aboutDialog.setSize(400, 340);
         aboutDialog.setLocationRelativeTo(this); // Center the dialog relative to the parent frame
 
@@ -325,13 +325,14 @@ public class EditorPage extends JFrame {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Add content to the panel
-        JLabel titleLabel = new JLabel("Mini Java Compiler", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Mini Java Code Analyzer", JLabel.CENTER);
         titleLabel.setFont(new Font("Source Code Pro", Font.BOLD, 18));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel descriptionLabel = new JLabel("<html>This Mini Java Compiler allows you to write, analyze, and execute simple Java code.<br><br>"
+        JLabel descriptionLabel = new JLabel(
+        "<html>This Mini Java Code Analyzer allows you to write and analyze a limited subset of Java code.<br><br>"
         + "Features include lexical, syntax, and semantic analysis.<br><br>"
-        + "Built using Java Swing for GUI and supporting basic compiler functionalities.</html>",
+        + "Built using Java Swing. It does not compile or execute Java programs.</html>",
         JLabel.CENTER);
         descriptionLabel.setFont(new Font("Source Code Pro", Font.PLAIN, 14));
         descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
